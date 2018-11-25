@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-
+import sys
+sys.path.append('/home/pi/rpi_ws281x/python/build/lib.linux-armv7l-2.7/')
 import time
 from neopixel import *
-from tkinter import *
+from Tkinter import *
+#import argparser
 
 # LED strip configuration:
 LED_COUNT      = 16      # Number of LED pixels.
@@ -24,6 +26,13 @@ def colorWipe(strip, color, wait_ms=50):
 
 def shutDown():
     colorWipe(strip, Color(0,0,0), 10)
+    
+if __name__ == '__main__':
+    #parser = argparse.ArgumentParser()
+    #parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
+    #args = parser.parse_args()
+    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+    strip.begin()
 
 master=Tk()
 
@@ -39,8 +48,3 @@ anButton.pack(side='left')
 
 ausButton=Button(anFrame,text="Ausschalten",width=15,command=shutDown)
 ausButton.pack(side='right')
-
-#master.mainloop()
-if __name__ == '__main__':
-    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-    strip.begin()
