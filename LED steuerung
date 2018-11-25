@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import time
-#from neopixel import *
+from neopixel import *
 from tkinter import *
 
 # LED strip configuration:
