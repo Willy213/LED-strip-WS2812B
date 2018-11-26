@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import sys
 sys.path.append('/home/pi/rpi_ws281x/python/build/lib.linux-armv7l-2.7/')
 import time
@@ -26,6 +25,10 @@ def colorWipe(strip, color, wait_ms=50):
 
 def shutDown():
     colorWipe(strip, Color(0,0,0), 10)
+
+def test():
+    colorWipe(strip, Color(120,120,120))
+    
     
 if __name__ == '__main__':
     #parser = argparse.ArgumentParser()
@@ -37,14 +40,22 @@ if __name__ == '__main__':
 master=Tk()
 
 infoFrame=Frame(master)
+#print("infoFrame=Frame(master)")
 infoFrame.pack()
+#print("infoFrame.pack()")
 infoText=Label(infoFrame,text="Steuerung des LED Bandes WS2812B mithilfe der Buttons")
 infoText.pack()
 
 anFrame=Frame(master)
+#print("anFrame=Frame(master)")
 anFrame.pack()
-anButton=Button(anFrame,text="Anschalten",width=15,command=colorWipe(strip,Color(120,120,120)))
+#print("anFrame.pack()")
+anButton=Button(anFrame,text="Anschalten",width=15,command=colorWipe(strip, Color(120,120,120)))
+#print("anButton=Button(anFrame,text=Anschalten,width=15,command=test)")
 anButton.pack(side='left')
+#print("anButton.pack(side='left')")
 
 ausButton=Button(anFrame,text="Ausschalten",width=15,command=shutDown)
+#print("ausButton=Button(anFrame,text=Ausschalten,width=15,command=shutDown)")
 ausButton.pack(side='right')
+#print("ausButton.pack(side='right')")
