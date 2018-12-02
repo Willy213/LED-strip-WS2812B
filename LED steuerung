@@ -1,9 +1,6 @@
-import sys
-sys.path.append('/home/pi/rpi_ws281x/python/build/lib.linux-armv7l-2.7/')
 import time
 from neopixel import *
-from Tkinter import *
-#import argparser
+from tkinter import *
 
 # LED strip configuration:
 LED_COUNT      = 16      # Number of LED pixels.
@@ -26,36 +23,46 @@ def colorWipe(strip, color, wait_ms=50):
 def shutDown():
     colorWipe(strip, Color(0,0,0), 10)
 
-def test():
-    colorWipe(strip, Color(120,120,120))
-    
-    
+class App(Frame):
+    def __init__(self,master):
+        Frame.__init__(self,master)
+        self.pack()
+        infoFrame=Frame(master)
+        infoFrame.pack()
+        infoText=Label(infoFrame,text="Steuerung des LED Bandes WS2812B mithilfe der Buttons")
+        infoText.pack()
+        self.buttonFrame=Frame(master)
+        self.buttonFrame.pack()
+
+        self.anbutton=Button(self.buttonFrame,text='Anschalten',width=15)
+        self.anbutton['command']=self.colorWipe(strip,Color(120,120,120), 10)
+        self.anbutton.pack(side='left')
+
+        self.ausbutton=Button(self.buttonFrame,text='Ausschalten',width=15)
+        self.ausbutton['command']=self.action
+        self.ausbutton.pack(side='right')
+
+    def colorWipe(strip, color, wait_ms=50):
+    #"""Wipe color across display a pixel at a time."""
+        for i in range(strip.numPixels()):
+            strip.setPixelColor(i, color)
+            strip.show()
+            #time.sleep(wait_ms/1000.0)
+        
+
+root=Tk()
+app=App(master=root)
+
+
+#anFrame=Frame(master)
+#anFrame.pack()
+#anButton=Button(anFrame,text="Anschalten",width=15,command=colorWipe(strip,Color(120,120,120), 10)))
+#anButton.pack(side='left')
+
+#ausButton=Button(anFrame,text="Ausschalten",width=15,command=shutDown)
+#ausButton.pack(side='right')
+
+master.mainloop()
 if __name__ == '__main__':
-    #parser = argparse.ArgumentParser()
-    #parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
-    #args = parser.parse_args()
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     strip.begin()
-
-master=Tk()
-
-infoFrame=Frame(master)
-#print("infoFrame=Frame(master)")
-infoFrame.pack()
-#print("infoFrame.pack()")
-infoText=Label(infoFrame,text="Steuerung des LED Bandes WS2812B mithilfe der Buttons")
-infoText.pack()
-
-anFrame=Frame(master)
-#print("anFrame=Frame(master)")
-anFrame.pack()
-#print("anFrame.pack()")
-anButton=Button(anFrame,text="Anschalten",width=15,command=colorWipe(strip, Color(120,120,120)))
-#print("anButton=Button(anFrame,text=Anschalten,width=15,command=test)")
-anButton.pack(side='left')
-#print("anButton.pack(side='left')")
-
-ausButton=Button(anFrame,text="Ausschalten",width=15,command=shutDown)
-#print("ausButton=Button(anFrame,text=Ausschalten,width=15,command=shutDown)")
-ausButton.pack(side='right')
-#print("ausButton.pack(side='right')")
