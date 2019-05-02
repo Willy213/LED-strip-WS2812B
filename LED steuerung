@@ -1,72 +1,12 @@
+import board
 import time
-from neopixel import *
-from Tkinter import *
+import neopixel
+pixels = neopixel.NeoPixel(board.D18, 30)
 
-# LED strip configuration:
-LED_COUNT      = 16      # Number of LED pixels.
-LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
-#LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
-LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
-LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+for i in range(0,10):
+    pixels[i] = (0,255, 0)
+    time.sleep(1)
 
-def colorWipe(strip, color, wait_ms=50):
-    """Wipe color across display a pixel at a time."""
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, color)
-        strip.show()
-        #time.sleep(wait_ms/1000.0)
-
-def shutDown():
-    colorWipe(strip, Color(0,0,0), 10)
-
-class App(Frame):
-    def __init__(self,master):
-        Frame.__init__(self,master)
-        self.pack()
-        strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-        strip.begin()
-        infoFrame=Frame(master)
-        infoFrame.pack()
-        infoText=Label(infoFrame,text="Steuerung des LED Bandes WS2812B mithilfe der Buttons")
-        infoText.pack()
-        self.buttonFrame=Frame(master)
-        self.buttonFrame.pack()
-
-        self.anbutton=Button(self.buttonFrame,text='Anschalten',width=15)
-        self.anbutton['command']=self.colorWipe(strip,Color(120,120,120))
-        self.anbutton.pack(side='left')
-
-        self.ausbutton=Button(self.buttonFrame,text='Ausschalten',width=15)
-        self.ausbutton['command']=self.shutDown
-        self.ausbutton.pack(side='right')
-
-    def colorWipe(strip, color, wait_ms=50):
-    #"""Wipe color across display a pixel at a time."""
-        for i in range(strip.numPixels()):
-            strip.setPixelColor(i, color)
-            strip.show()
-            #time.sleep(wait_ms/1000.0)
-
-    def shutDown(strip,color, wait_ms=50):
-        colorWipe(strip, Color(0,0,0), 10)        
-
-root=Tk()
-app=App(master=root)
-
-
-#anFrame=Frame(master)
-#anFrame.pack()
-#anButton=Button(anFrame,text="Anschalten",width=15,command=colorWipe(strip,Color(120,120,120), 10)))
-#anButton.pack(side='left')
-
-#ausButton=Button(anFrame,text="Ausschalten",width=15,command=shutDown)
-#ausButton.pack(side='right')
-
-#master.mainloop()
-if __name__ == '__main__':
-    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-    strip.begin()
-master.mainloop()
+for i in range(0,10):
+    pixels[i] = (0,0, 0)
+    time.sleep(1)
