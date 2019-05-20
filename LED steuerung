@@ -3,8 +3,12 @@ import time
 import neopixel
 pixels = neopixel.NeoPixel(board.D18, 156)
 
+voll = 255
+halb = 125
+schwach = 30
+
 for i in range(0,155):
-    pixels[i] = (0,255, 0)
+    pixels[i] = (0,schwach, 0)
     time.sleep(0.2)
 
 for i in range(0,155):
